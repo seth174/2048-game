@@ -1,4 +1,4 @@
 # 2048-game
 2048 game 
-Future directions on how to use app.
-Technologies used in app. 
+Simple game that works with powers of 2.
+Uses pyCharm as the IDE and pyGame as the GUI

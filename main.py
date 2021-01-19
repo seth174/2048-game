@@ -3,6 +3,7 @@ import board as b
 import pygame
 import gui
 import random
+import sys
 
 
 def initialize(board, game_screen_1):
@@ -74,9 +75,15 @@ def random_number_placer(board):
         full_counter = full_counter + 1
 
 
+try:
+    file_name = open('scores.txt', 'r+')
+except FileNotFoundError:
+    print('File not found')
+    sys.exit()
 new_board = b.Board()
 
 pygame.init()
+
 screen = pygame.display.set_mode((400, 400))
 gui.game_board(screen)
 run = True

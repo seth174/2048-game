@@ -28,7 +28,7 @@ def assist_push_left(board, row, column):
 
 
 def assist_push_up(board, row, column):
-    """Moves board upt"""
+    """Moves board up"""
     if column == 4:
         return
     elif row == 3:

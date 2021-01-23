@@ -1,9 +1,7 @@
 import pygame
 
-
+BOARD_COLOR = (150, 150, 200)
 def game_board(screen):
-    screen.fill((150, 150, 200))
-    pygame.display.set_caption('2048')
 
     pygame.draw.line(screen, (35, 9, 56), (0, 0), (0, 400), 5)
     pygame.draw.line(screen, (35, 9, 56), (100, 0), (100, 400), 5)
@@ -23,6 +21,9 @@ def game_board(screen):
 def draw_number(value, row, column, screen):
     x_position = column * 100
     y_position = row * 100
+    size = 0
+    x_position_number = 0
+    y_position_number = 0
     if value < 10:
         x_position_number = (column * 100) + 35
         y_position_number = (row * 100) + 25
@@ -46,11 +47,13 @@ def draw_number(value, row, column, screen):
     screen.blit(text, (x_position_number, y_position_number))
     pygame.display.update()
 
+
 def erase_number(row, column, screen):
     x_position = column * 100
     y_position = row * 100
     screen.fill((150, 150, 200), (x_position + 3, y_position + 3, 95, 95))
     pygame.display.update()
+
 
 def get_color(value):
     if value == 2:
@@ -83,3 +86,34 @@ def get_color(value):
 
 def move_number(screen, direction, numbers_placed):
     pass
+
+def fill_board(screen):
+    screen.fill(BOARD_COLOR)
+    pygame.display.update()
+
+def clear_instructions(screen):
+    screen.fill(BOARD_COLOR, (0, 400, 400, 600))
+    pygame.display.update()
+
+def instructions(screen, starting_position, *string, ):
+    x, y = starting_position
+    y_position = y
+    for sentence in string:
+        font = pygame.font.Font(None, 35)
+        text = font.render(sentence, 1, (100, 0, 0))
+        screen.blit(text, (x, y_position))
+        y_position += 50
+    pygame.display.update()
+
+def erase_score(screen):
+    screen.fill(BOARD_COLOR, (0, 500, 400, 100))
+    pygame.display.update()
+
+def score(screen, new_score):
+    font = pygame.font.Font(None, 35)
+    text = font.render(str(new_score), 1, (100, 0, 0))
+    screen.blit(text, (20, 500))
+
+
+
+

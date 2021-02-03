@@ -60,7 +60,7 @@ def random_number_placer(board):
     counter = 0
     for cell in np.nditer(board.board):
         if cell != 0:
-            print('pass')
+            pass
         elif random_number == counter:
             if full_counter < 4:
                 board.edit_board(full_counter, 0, new_number)
@@ -83,14 +83,8 @@ def name_check(string):
     return len(string.split()) == 2 or len(string.split()) == 1
 
 
-try:
-    file_writer = open('scores.txt', 'a')
-except FileNotFoundError:
-    print('File not found')
-    sys.exit()
-file_writer.write('Hello\n')
+FILENAME = 'scores.txt'
 new_board = b.Board()
-file_writer.close()
 
 score = 0
 
@@ -166,4 +160,38 @@ while run:
                     gui.score(screen, score)
                     pygame.time.wait(100)
         pygame.display.update()
+
+
+try:
+    file = open(FILENAME, 'a')
+    file.write(f'{name} {score}\n')
+    file.close()
+except FileNotFoundError:
+    print('File not found')
+    sys.exit()
+scores = {}
+with open(FILENAME) as file:
+    for line in file:
+        info = line.split()
+        if len(info) == 2:
+            scores[info[0]] = int(info[1])
+        else:
+            scores[f'{info[0]} {info[1][0]}'] = int(info[2])
+        scores = {k: v for k, v in sorted(scores.items(), key=lambda item: item[1], reverse=True)}
+        if len(scores) > 10:
+            temp = list(scores.keys())
+            name = temp[10]
+            scores.pop(name)
+
+plt.bar(list(scores.keys()), list(scores.values()), align='center')
+
+plt.xticks(rotation='vertical')
+
+plt.title('Top 10 Scores')
+plt.xlabel('Names')
+plt.ylabel('Points')
+plt.xticks(fontsize=7)
+
+
+plt.show()
 
